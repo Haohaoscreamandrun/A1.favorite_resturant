@@ -22,12 +22,12 @@
       "description": 
     }
 ```
-1. Prerequisite:
+2. Prerequisite:
 ```
 express@4.16.4
 express-handlebars@3.0.0
 ```
-1. Once you have completed the above steps, you can run the application and start searching for restaurants.
+3. Once you have completed the above steps, you can run the application and start searching for restaurants.
 
 ## Built with
 * Bootstrap & Popper
