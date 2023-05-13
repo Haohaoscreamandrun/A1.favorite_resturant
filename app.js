@@ -47,6 +47,25 @@ app.get('/', (req, res) => {
     .catch(err => console.error(err))
 })
 
+// Handel searching
+app.get('/search', (req, res) => {
+  const keyword = req.query.keyword.toLowerCase().trim()
+  if(!keyword){
+    return res.redirect('/')
+  }
+  
+  return Favor.find()
+    .lean()
+    .then((restaurant) => {
+      
+      const filterRestaurantData = restaurant.filter((data) => {
+          return data.name.toLowerCase().includes(keyword) || data.category.includes(keyword)
+        })
+      res.render('index',{restaurant: filterRestaurantData, keyword})
+    })
+    .catch(err => console.error(err))
+})
+
 // Handle New page and add, url is same as get details, need to be put in front of get details
 app.get('/restaurants/new',(req,res)=>{
   res.render('new')
@@ -68,15 +87,14 @@ app.get('/restaurants/:restaurant_id',(req,res)=>{
     .catch(err => console.error(err))
 })
 
-
-// // Handel searching
-// app.get('/search', (req, res) => {
-//   const keyword = req.query.keyword.toLowerCase().trim()
-//   const restaurant = restaurantList.results.filter(function(r){
-//     return r.name.toLowerCase().includes(keyword) || r.name_en.toLowerCase().includes(keyword) || r.category.toLowerCase().includes(keyword)
-//   })
-//   res.render('index', { restaurant: restaurant, keyword: keyword})
-// })
+// Handle Edit
+app.get('/restaurants/:restaurant_id/edit',(req,res)=>{
+  const id = req.params.restaurant_id
+  return Favor.findById(id)
+    .lean()
+    .then(restaurant => res.render('edit', { restaurant }))
+    .catch(err => console.error(err))
+})
 
 // Start and listen the server
 app.listen(port, () => {
