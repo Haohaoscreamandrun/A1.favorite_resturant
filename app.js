@@ -8,6 +8,27 @@ const exphbs = require('express-handlebars')
 // setting template engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
+
+// include dotenv only in informal environment
+if (process.env.NODE_ENV !== 'production'){
+  require('dotenv').config()
+} 
+
+// include mongoose, connect to database under recommend method
+const mongoose = require('mongoose')
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+
+// access connection
+const db = mongoose.connection
+  // deviate
+  db.on('error',()=>{
+    console.log('mongodb error!')
+  })
+  // success
+  db.once('open',()=>{
+    console.log('mongodb connected!')
+  })
+
 // setting static files 
 app.use(express.static('public'))
 // require database
