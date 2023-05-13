@@ -88,11 +88,28 @@ app.get('/restaurants/:restaurant_id',(req,res)=>{
 })
 
 // Handle Edit
-app.get('/restaurants/:restaurant_id/edit',(req,res)=>{
-  const id = req.params.restaurant_id
+app.get('/restaurants/:id/edit',(req,res)=>{
+  const id = req.params.id
   return Favor.findById(id)
     .lean()
     .then(restaurant => res.render('edit', { restaurant }))
+    .catch(err => console.error(err))
+})
+app.post('/restaurants/:id',(req,res)=>{
+  const id = req.params.id
+  const data = req.body
+  console.log(id,data)
+  return Favor.findByIdAndUpdate(id, data)
+    .then(()=> res.redirect(`/restaurants/${id}`))
+    .catch(err => console.error(err))
+})
+
+// Handel delete
+app.post('/restaurants/:id/delete',(req,res)=>{
+  const id = req.params.id
+  return Favor.findById(id)
+    .then(restaurant=>restaurant.remove())
+    .then(()=> res.redirect('/'))
     .catch(err => console.error(err))
 })
 
