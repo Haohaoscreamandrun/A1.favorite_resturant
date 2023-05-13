@@ -38,4 +38,4 @@ express-handlebars@3.0.0
  If you encounter any issues while using the application, you can contact the project owner by sending an email to j842671395@gmail.com. Alternatively, you can seek help from AlphaCamp's teaching assistant.
 
 ## Project maintenance
- This project is maintained by Hao Chen, who is responsible for ensuring that it continues to function effectively. The project was originally created as part of AlphaCamp's 2-3 back-end development boot camp, and they reserve all the rights to it.
+ This project is maintained by Hao Chen, Daniel Lin, who is responsible for ensuring that it continues to function effectively. The project was originally created as part of AlphaCamp's 2-3 back-end development boot camp, and they reserve all the rights to it.

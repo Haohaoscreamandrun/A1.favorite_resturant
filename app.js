@@ -42,6 +42,14 @@ app.get('/', (req, res) => {
     .catch(err => console.error(err))
 })
 
+// Handle New page and add
+app.get('/restaurants/new',(req,res)=>{
+  res.render('new')
+})
+app.post('/restaurants',(req,res)=>{
+
+})
+
 // Handle show
 app.get('/restaurants/:restaurant_id',(req,res)=>{
   const id = req.params.restaurant_id
@@ -51,19 +59,15 @@ app.get('/restaurants/:restaurant_id',(req,res)=>{
     .catch(err => console.error(err))
 })
 
-// Handel searching
-app.get('/search', (req, res) => {
-  const keyword = req.query.keyword.toLowerCase().trim()
-  const restaurant = restaurantList.results.filter(function(r){
-    return r.name.toLowerCase().includes(keyword) || r.name_en.toLowerCase().includes(keyword) || r.category.toLowerCase().includes(keyword)
-  })
-  res.render('index', { restaurant: restaurant, keyword: keyword})
-})
 
-// Handle Adding Restaurant
-app.get("/restaurants/new",(req,res)=>{
-
-})
+// // Handel searching
+// app.get('/search', (req, res) => {
+//   const keyword = req.query.keyword.toLowerCase().trim()
+//   const restaurant = restaurantList.results.filter(function(r){
+//     return r.name.toLowerCase().includes(keyword) || r.name_en.toLowerCase().includes(keyword) || r.category.toLowerCase().includes(keyword)
+//   })
+//   res.render('index', { restaurant: restaurant, keyword: keyword})
+// })
 
 // Start and listen the server
 app.listen(port, () => {
