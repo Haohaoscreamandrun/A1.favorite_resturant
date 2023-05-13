@@ -44,9 +44,11 @@ app.get('/', (req, res) => {
 
 // Handle show
 app.get('/restaurants/:restaurant_id',(req,res)=>{
-  const restaurant = restaurantList.results.find(restaurant => restaurant.id.toString() === req.params.restaurant_id)
-  
-  res.render('show', {restaurant: restaurant})
+  const id = req.params.restaurant_id
+  return Favor.findById(id)
+    .lean()
+    .then((restaurant) => res.render('show', {restaurant: restaurant}))
+    .catch(err => console.error(err))
 })
 
 // Handel searching
@@ -56,6 +58,11 @@ app.get('/search', (req, res) => {
     return r.name.toLowerCase().includes(keyword) || r.name_en.toLowerCase().includes(keyword) || r.category.toLowerCase().includes(keyword)
   })
   res.render('index', { restaurant: restaurant, keyword: keyword})
+})
+
+// Handle Adding Restaurant
+app.get("/restaurants/new",(req,res)=>{
+
 })
 
 // Start and listen the server

@@ -23,7 +23,7 @@
       <div class="row row-cols-sm-3">
 
         {{#each restaurant}}
-        <a href="/restaurants/{{this.id}}" class="text-secondary">
+        <a href="/restaurants/{{this._id}}" class="text-secondary">
           <div class="card mb-3">
             <img class="card-img-top" src="{{this.image}}"
               alt="{{this.name}}">
@@ -43,7 +43,15 @@
           </div>
         </a>
         {{/each}}
-
+        <a href="/restaurants/new" class="text-secondary">
+          <div class="card mb-3">
+            
+            <div class="card-body p-3">
+              <h6 class="card-title mb-1">添加新餐廳</h6>
+        
+            </div>
+          </div>
+        </a>
       </div>
     </div>
   </div>
