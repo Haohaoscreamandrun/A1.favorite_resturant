@@ -10,7 +10,7 @@ const favorSchema = new Schema({
     type: String,
     required: true
   },
-  img: String,
+  image: String,
   location:{
     type: String,
     required: true

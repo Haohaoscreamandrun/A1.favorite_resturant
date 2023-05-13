@@ -32,11 +32,14 @@ const db = mongoose.connection
 // setting static files 
 app.use(express.static('public'))
 // require database
-const restaurantList = require('./restaurant.json')
+const Favor = require('./models/favor.js')
 
 // Handle request and response here
 app.get('/', (req, res) => {
-    res.render('index',{restaurant: restaurantList.results})
+    Favor.find() //get all data from Favor model
+    .lean()
+    .then(restaurant => res.render('index',{restaurant}))
+    .catch(err => console.error(err))
 })
 
 // Handle show
