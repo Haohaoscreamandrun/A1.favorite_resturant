@@ -9,6 +9,11 @@ const exphbs = require('express-handlebars')
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
+// 引用 body-parser
+const bodyParser = require('body-parser')
+// 用 app.use 規定每一筆請求都需要透過 body-parser 進行前置處理
+app.use(bodyParser.urlencoded({ extended: true }))
+
 // include dotenv only in informal environment
 if (process.env.NODE_ENV !== 'production'){
   require('dotenv').config()
@@ -42,12 +47,16 @@ app.get('/', (req, res) => {
     .catch(err => console.error(err))
 })
 
-// Handle New page and add
+// Handle New page and add, url is same as get details, need to be put in front of get details
 app.get('/restaurants/new',(req,res)=>{
   res.render('new')
 })
 app.post('/restaurants',(req,res)=>{
-
+  const data = req.body
+  console.log(data)
+  return Favor.create(data)
+    .then(()=> res.redirect('/'))
+    .catch(err => console.error(err))
 })
 
 // Handle show
