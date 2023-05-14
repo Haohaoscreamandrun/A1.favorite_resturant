@@ -11,8 +11,6 @@ const methodOverride = require('method-override')
 const bodyParser = require('body-parser')
 // Include router
 const routes = require('./routes')
-// require database
-const Favor = require('./models/favor.js')
 // require mongoose
 require('./config/mongoose')
 
