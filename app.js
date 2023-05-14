@@ -20,8 +20,7 @@ require('./config/mongoose')
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
-
-// setting static files 
+// setting static files
 app.use(express.static('public'))
 // 用 app.use 規定每一筆請求都需要透過 body-parser 進行前置處理
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -29,7 +28,6 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 // Direct request to router
 app.use(routes)
-
 
 // Start and listen the server
 app.listen(port, () => {
