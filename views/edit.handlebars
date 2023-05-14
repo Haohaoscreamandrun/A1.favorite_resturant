@@ -1,6 +1,6 @@
 <div>
   <h1 class="mb-1 title">修改餐廳資料</h1>
-  <form action="/restaurants/{{restaurant._id}}" method="POST">
+  <form action="/restaurants/{{restaurant._id}}?_method=PUT" method="POST">
   {{!-- form只有GET、POST兩種方法，如果要PUT必須要用URL使用隱藏路由..但嘗試多次都不能 --}}
     <div class="mb-3">
       <label for="name" class="form-label">餐廳中文名稱</label>

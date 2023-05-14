@@ -5,14 +5,20 @@ const app = express()
 const port = 3000
 // require express-handlebars here
 const exphbs = require('express-handlebars')
+// Include method-override
+const methodOverride = require('method-override')
+// Include body-parser
+const bodyParser = require('body-parser')
+
 // setting template engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
-// 引用 body-parser
-const bodyParser = require('body-parser')
+
 // 用 app.use 規定每一筆請求都需要透過 body-parser 進行前置處理
 app.use(bodyParser.urlencoded({ extended: true }))
+// Ask every request use methodOverride
+app.use(methodOverride('_method'))
 
 // include dotenv only in informal environment
 if (process.env.NODE_ENV !== 'production'){
@@ -95,17 +101,16 @@ app.get('/restaurants/:id/edit',(req,res)=>{
     .then(restaurant => res.render('edit', { restaurant }))
     .catch(err => console.error(err))
 })
-app.post('/restaurants/:id',(req,res)=>{
+app.put('/restaurants/:id',(req,res)=>{
   const id = req.params.id
   const data = req.body
-  console.log(id,data)
   return Favor.findByIdAndUpdate(id, data)
     .then(()=> res.redirect(`/restaurants/${id}`))
     .catch(err => console.error(err))
 })
 
 // Handel delete
-app.post('/restaurants/:id/delete',(req,res)=>{
+app.delete('/restaurants/:id',(req,res)=>{
   const id = req.params.id
   return Favor.findById(id)
     .then(restaurant=>restaurant.remove())
