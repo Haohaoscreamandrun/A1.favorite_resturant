@@ -9,16 +9,24 @@ const exphbs = require('express-handlebars')
 const methodOverride = require('method-override')
 // Include body-parser
 const bodyParser = require('body-parser')
+// Include router
+const routes = require('./routes')
+// require database
+const Favor = require('./models/favor.js')
 
 // setting template engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
 
+// setting static files 
+app.use(express.static('public'))
 // 用 app.use 規定每一筆請求都需要透過 body-parser 進行前置處理
 app.use(bodyParser.urlencoded({ extended: true }))
 // Ask every request use methodOverride
 app.use(methodOverride('_method'))
+// Direct request to router
+app.use(routes)
 
 // include dotenv only in informal environment
 if (process.env.NODE_ENV !== 'production'){
@@ -40,10 +48,6 @@ const db = mongoose.connection
     console.log('mongodb connected!')
   })
 
-// setting static files 
-app.use(express.static('public'))
-// require database
-const Favor = require('./models/favor.js')
 
 // Handle request and response here
 app.get('/', (req, res) => {
